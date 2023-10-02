@@ -4,8 +4,7 @@
 # Date: 1 October 2023
 # Contact: yiliu.cao@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: 
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: None
 
 
 #### Workspace setup ####
