@@ -29,4 +29,4 @@ cleaned_data <-
   janitor::clean_names()
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/cleaned_data.csv")
+write_csv(x = cleaned_data, file = "outputs/data/cleaned_data.csv")
