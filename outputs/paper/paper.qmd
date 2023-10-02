@@ -1,34 +1,40 @@
 ---
 title: "My title"
-subtitle: "My subtitle if needed"
-author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
-date: "`r Sys.time()`"
-date-format: "D MMMM YYYY"
+author: "Yiliu Cao"
+thanks: "Code and data from this analysis are available at: https://github.com/yiliuc/Bicycle_Thefts_2023.git"
+date: "today"
+date-format: "long"
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
 format: pdf
+toc: true
 number-sections: true
 bibliography: references.bib
 ---
 
 ```{r}
-#| include: false
-#| warning: false
 #| message: false
+#| echo: false
 
+#### Workspace set-up ####
+
+## Load packages
 library(tidyverse)
 library(palmerpenguins)
+library(here)
+
+# read in the cleaned data
+# setwd("/Users/caoyiliu/Desktop/U of T/Year 4/STA497/Bicycle_Thefts_2023")
+cleaned_data <- read_csv(here("outputs/data/cleaned_data.csv"))
 ```
 
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. 
+As the annual ranking by PeopleForBikes on 2022, Toronto has been named the 16th best major cycling city. In Toronto, there is about 300 kilometers on-street bike lanes and over 150 kilometers of off-street bike trails. Bicycle is becoming the main travel mode for the people living in Toronto. You can see people taking bicycle around each corner. However, as the number of bicycles increases each year, bicycles thefts had became a severe problem that needs to pay more attention on this. In Toronto, the bicycle thefts in Toronto surged during the past summer, nearly a 429 per cent increases. According to the neighborhood crime app by TPS, the downtown Toronto is place where the bicycle theft is mostly likely to occur, especially the U of T campus where the bicycle thefts is maximum. 
 
-The remainder of this paper is structured as follows. @sec-data....
+Once the the bike is stolen, then the probability of getting it back is very low. However, even though the people lock their bikes, it may still be stolen as breaking the lock on the bicycle is a easy thing. You can even break the U lock with only a pen. Therefore, it is necessary for the bicycle riders to learn the feature influencing the possibility of bicycle to be stolen and estimate how likely their bicycle will be stolen. In this paper, I will use the historical bicycle thefts in Toronto to investigate the factors contributing to the bicycle thefts and tell the riders in what circumstances, the bicycle is most likely to be stolen.
 
+In this paper, there will be four main parts: Data, Results, Discussion and Conclusion. In the Data section, I will introduce the data used in this paper and summarize the key variables. In addition to that, I will use the figures to show what kind of bicycles are most likely to be stolen as well as the places in the Results session. Moreover, in the Discussion session, I will emphasize the main findings and discuss how avoid the bicycle thefts. Finally, I will discuss the limitations and further conclude the entire paper in the Conclusion session.
 
 
 # Data {#sec-data}
