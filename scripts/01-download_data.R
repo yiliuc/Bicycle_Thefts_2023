@@ -17,10 +17,10 @@ bicycles_thefts_resources <- bicycle_thefts_package %>%
   list_package_resources() %>% 
   filter(format == "CSV") %>% 
   head(1)
-raw_thefts_data <- bicycles_thefts_resources %>% 
+raw_bicycle_thefts_data <- bicycles_thefts_resources %>% 
   get_resource()
 
 #### Save data ####
-write_csv(raw_thefts_data, "inputs/data/raw_thefts_data.csv") 
+write_csv(raw_thefts_data, "inputs/data/raw_bicycle_thefts_data.csv") 
 
          
