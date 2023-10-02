@@ -21,6 +21,6 @@ raw_bicycle_thefts_data <- bicycles_thefts_resources %>%
   get_resource()
 
 #### Save data ####
-write_csv(raw_thefts_data, "inputs/data/raw_bicycle_thefts_data.csv") 
+write_csv(raw_bicycle_thefts_data, "inputs/data/raw_bicycle_thefts_data.csv") 
 
          
