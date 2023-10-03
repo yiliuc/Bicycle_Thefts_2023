@@ -95,8 +95,7 @@ cleaned_data %>%
 
 
 # Results
-
-## There was a rebounace of bicycle thefts in 2022, especially for summer.
+## Compare the bicycle thefts in the recent six years
 ```{r, echo = FALSE}
 # Ensure the cleaned_data dataframe has columns named 'Year', 'Month', and 'Bicycle_Thefts' or equivalent
 
@@ -122,7 +121,7 @@ summarized_data %>%
 
 Descriptions here
 
-## Increasing number of bicycle thefts on the outside and educational areas.
+## Compare the premises types and probability to be stolen during summer.
 ```{r}
 cleaned_data <- cleaned_data %>% 
   mutate(stolen_summer = case_when(occ_month %in% c("May", "June", "July", "August") ~ "Yes",
@@ -143,7 +142,7 @@ cleaned_data |>
 
 Descriptions here
 
-## Three
+## Compare the top 4 colours and top 5 bicycle types from bicycle thefts 
 
 ```{r}
 mean_price <- mean(cleaned_data$bike_cost, na.rm = TRUE)
@@ -185,13 +184,23 @@ Descriptions here
 
 # Discussion
 
-## First discussion point {#sec-first-point}
+## Repeating patterns of bicycle thefts: expected to decrease in 2023.
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+From Figure 1, it seems that the bicycle thefts happen most during the summer but less during the winter. According to Amanat, the number of bicycle thefts surged 429 per cent during the summer month. The potential reason behind this pattern is that people are more likely to ride bicycle during the summer but due to the cold weather, less people take bicycle during winter and hence the occurrence of bicycle thefts decreases.
 
-## Second discussion point
+For the summer month, we can observe a “pendulum movement“ in bicycle thefts. The number of thefts alternates annually, increasing one year and then decreasing the next. This trend repeats consistently from 2017 to 2022. Comparing 2022 to 2021, we see that the number of bicycle thefts during summer of 2022 started to increase again comparing to 2021. We may expect that the number of bicycle thefts decrease during the past summer. In addition, we can observe that most decrease is between 2020 and 2021, where there was about 200 decrease in the thefts during summer months. However, the potential reason behind this dramatic decrease is COVID, we can not use this to justify the number changed in bicycle thefts this year.
 
-## Third discussion point
+From 2017 to 2022, July is always the month with most bicycle thefts. Even though there will be an expected decrease in bicycle thefts in 2023 summer, the number of bicycle in July will still remain around 350, roughly 10 thefts per day. If you are a rider, then you really need to raise your awareness of bicycle thefts during July.
+
+## Increasing number of bicycle thefts on the outside and educational areas.
+From Figure 2, we can observe that the distribution of number of bicycle thefts in each year is roughly same. However, we can observe that apartment was the premise type that have highest bicycle thefts. However, thefts from the apartment decreases gradully from 2020 to 2023, instead, the number of bicycle thefts on streets, roads or highways (Outside) seems to increase gradually and dominated in 2022. In addition, the number of thefts in educational areas like school or university also increased. This suggest to students who take bicycle to school also need to protect their bicycle more. 
+
+In addition, for all premises types in each year, we can observe that almost half was occurred during summer. Except for "Apartment", we can observe that the proportion of bikes that were stolen during summer increases. 
+
+## No evidence indicates that the cheaper/more expensive bicycles are less/more likely to be stolen.
+From Figure 3, it seems that the black bikes is in favor of thieves. The amount of black bicycle lost is about the same as the other three colors combined. In terms of bicycle types, MT (mountain type) is bicycle type that is most likely to be stolen, followed by RG (Regular) which has almost same thefts with MT. 
+
+In terms of price of bicycles, it seems that except EL, majority of stolen bicycles for the rest bicycle types have a price below the mean price. For the most two "welcome" bicycle types for thieves MT and RG, nearly eighty percent stolen bicycles for each color has a price lower than the mean price. This indicates that thieves will not evaluate the price of bicycles before they steal it. They pick a random bicycle to steal as long as the time is right.
 
 # Conclusion
 
