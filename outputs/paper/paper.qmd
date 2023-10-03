@@ -1,5 +1,6 @@
 ---
-title: "My title"
+title: "Assessing Bicycle Parking Safety in Toronto: The Multifaceted Nature of Theft Risk."
+title-block-banner: true
 author: "Yiliu Cao"
 thanks: "Code and data from this analysis are available at: https://github.com/yiliuc/Bicycle_Thefts_2023.git"
 date: "today"
@@ -51,11 +52,12 @@ The cleaned data contains very detailed information regarding the occurrence tim
 #| echo: false
 #| message: false
 #| label: tbl_theft_occ_year
-#| tbl-cap: Summary of Bicycle Thefts Occurrence Year
+#| tbl-cap: Summary of Bicycle Thefts Occurrence Year (2014 to 2022)
 cleaned_data %>% 
   group_by(occ_year) %>% 
   summarise(n = n()) %>% 
   arrange(desc(occ_year)) %>% 
+  slice(1:9) %>% 
   rename(`Occurrence Year` = occ_year,
          `Count` = n) %>% 
   kable()
@@ -71,7 +73,7 @@ The second main category in the cleaned data is describing the places of bicycle
 #| echo: false
 #| message: false
 #| label: a
-#| tbl-cap: Summary of Bicycle Thefts Occurrence Year
+#| tbl-cap: Summary of Bicycle Thefts In Terms of Premises Types
 cleaned_data %>% 
   group_by(premises_type) %>% 
   summarise(n = n()) %>% 
@@ -91,7 +93,7 @@ The last category of variables in the cleaned data is the features of each stole
 #| echo: false
 #| message: false
 #| label: b
-#| tbl-cap: Summary of Bicycle Thefts Occurrence Year
+#| tbl-cap: Summary of Stolen Bicycle Cost
 summary_stats <- data.frame(
   Mean = mean(cleaned_data$bike_cost, na.rm = TRUE),
   SD = sd(cleaned_data$bike_cost, na.rm = TRUE),
@@ -107,6 +109,7 @@ Table3 shows the bicycle price of stolen bicycles. The mean price of stolen bicy
 
 ```{r}
 #| echo: false
+#| include: false
 #| message: false
 #| label: c
 #| tbl-cap: Summary of Bicycle Thefts Occurrence Year
@@ -114,6 +117,7 @@ cleaned_data %>%
   group_by(bike_colour) %>% 
   summarise(n = n()) %>% 
   arrange(desc(n)) %>% 
+  slice(1:4) %>% 
   rename(`Bike Colour` = bike_colour,
          `Count` = n) %>% 
   kable()
@@ -127,7 +131,7 @@ cleaned_data %>%
 #| echo: false
 #| message: false
 #| label: d
-#| fig-cap: The number of bicycle thefts from 2017 to 2022 by month
+#| fig-cap: Number of bicycle thefts from 2017 to 2022 by month
 summarized_data <- cleaned_data %>%
   filter(occ_year %in% 2017:2022) %>% 
   group_by(occ_year, occ_month) %>%
@@ -136,7 +140,7 @@ summarized_data <- cleaned_data %>%
 summarized_data %>% 
     mutate(occ_month = factor(occ_month, levels = month.name)) %>% 
     ggplot(aes(x = occ_month, y = Total_Thefts, group = occ_year, color =  as.factor(occ_year))) +
-    geom_line(size = 1) +
+    geom_line(linewidth = 1) +
     scale_colour_manual(name = "Years", 
                       values = c("grey", "black", "green", "red", "blue","skyblue")) +
     labs(x = "Month",
@@ -153,7 +157,8 @@ The Figure 1 compares the monthly bicycle thefts from 2017 to 2022 with each lin
 #| echo: false
 #| message: false
 #| label: e
-#| fig-cap: Summary of Bicycle Thefts Occurrence Year
+#| fig-cap: Distribution of Bicycle Thefts by Premises Type and Seasonal Trends in Toronto
+
 cleaned_data <- cleaned_data %>% 
   mutate(stolen_summer = case_when(occ_month %in% c("May", "June", "July", "August") ~ "Yes",
                                    TRUE ~ "No"))
@@ -180,7 +185,8 @@ Figure 3 compares the premises type of bicycle thefts in the recent three years 
 #| echo: false
 #| message: false
 #| label: f
-#| fig-cap: Summary of Bicycle Thefts Occurrence Year
+#| fig-cap: Distribution of bicycle thefts for the Top 4 Colours and Top 5 Bicycle Types
+
 mean_price <- mean(cleaned_data$bike_cost, na.rm = TRUE)
 top_colors <- cleaned_data %>%
   count(bike_colour) %>%
