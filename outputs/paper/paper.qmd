@@ -47,10 +47,10 @@ The cleaned data contains very detailed information regarding the occurrence tim
 
 ```{r}
 cleaned_data %>% 
-  group_by(occ_month) %>% 
+  group_by(occ_year) %>% 
   summarise(n = n()) %>% 
   arrange(desc(n)) %>% 
-  rename(`Occurrence Month` = occ_month,
+  rename(`Occurrence Year` = occ_year,
          `Count` = n) %>% 
   kable()
 ```
@@ -96,13 +96,91 @@ cleaned_data %>%
 
 # Results
 
-## One
+## There was a rebounace of bicycle thefts in 2022, especially for summer.
+```{r, echo = FALSE}
+# Ensure the cleaned_data dataframe has columns named 'Year', 'Month', and 'Bicycle_Thefts' or equivalent
 
-## Two
+# Summarize data by Year and Month
+summarized_data <- cleaned_data %>%
+  filter(occ_year %in% 2017:2022) %>%  # Filtering data for the years 2014 to 2022
+  group_by(occ_year, occ_month) %>%
+  summarize(Total_Thefts = n())  # Replace 'Bicycle_Thefts' with the correct column name if different
+
+# Plot the data
+summarized_data %>% 
+    mutate(occ_month = factor(occ_month, levels = month.name)) %>% 
+    ggplot(aes(x = occ_month, y = Total_Thefts, group = occ_year, color =  as.factor(occ_year))) +
+    geom_line(size = 1) +
+    scale_colour_manual(name = "Years", 
+                      values = c("grey", "black", "green", "red", "blue","skyblue")) +
+    labs(title = "The number of bicycle thefts from 2017 to 2022 by month",
+       x = "Month",
+       y = "Number of bicycle thefts") +
+    theme_minimal() +
+    guides(x = guide_axis(angle = 90))
+```
+
+Descriptions here
+
+## Increasing number of bicycle thefts on the outside and educational areas.
+```{r}
+cleaned_data <- cleaned_data %>% 
+  mutate(stolen_summer = case_when(occ_month %in% c("May", "June", "July", "August") ~ "Yes",
+                                   TRUE ~ "No"))
+cleaned_data |>
+  filter(occ_year >= 2020 & premises_type != "Other") %>% 
+  ggplot(mapping = aes(x = premises_type, fill=stolen_summer)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(
+    x = "Premises type",
+    y = "Number of thefts",
+    fill = "Stolen during summer?") +
+  facet_wrap(vars(occ_year)) +
+  guides(x = guide_axis(angle = 90)) +
+  theme(legend.position = "bottom")
+```
+
+Descriptions here
 
 ## Three
 
+```{r}
+mean_price <- mean(cleaned_data$bike_cost, na.rm = TRUE)
+top_colors <- cleaned_data %>%
+  count(bike_colour) %>%
+  arrange(desc(n)) %>%
+  slice(1:4) %>%
+  pull(bike_colour)
+top_bike_types <- cleaned_data %>%
+  count(bike_type) %>%
+  arrange(desc(n)) %>%
+  slice(1:6) %>%
+  pull(bike_type)
 
+cleaned_data <- cleaned_data %>%
+  mutate(above_mean = ifelse(bike_cost > mean_price, "Above Mean", "Below Mean"))
+
+cleaned_data %>%
+  filter(bike_colour %in% top_colors, bike_type %in% top_bike_types) %>%
+  mutate(bike_colour_new = case_when(bike_colour == "BLK" ~ "Black",
+                                     bike_colour == "BLU" ~ "Blue",
+                                     bike_colour == "GRY" ~ "Grey",
+                                     bike_colour == "WHI" ~ "White")) %>% 
+  ggplot(mapping = aes(x = bike_type, fill = above_mean)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(x = "Bicycle Type",
+       y = "Number of Bicycle Thefts",
+       fill = "Price of Stolen Bicycles") +
+  facet_wrap(vars(bike_colour_new),
+             scales = "free") +
+  scale_fill_manual(values = c("Above Mean" = "#E69F00", "Below Mean" = "#204e4c")) +
+  guides(x = guide_axis(angle = 90)) +
+  theme(legend.position = "bottom")
+```
+
+Descriptions here
 
 
 # Discussion
