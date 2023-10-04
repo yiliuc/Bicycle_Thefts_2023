@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from toronto open data portal
+# Purpose: Downloads and saves the data from Toronto open data portal
 # Author: Yiliu Cao
 # Date: 1 October 2023
 # Contact: yiliu.cao@mail.utoronto.ca

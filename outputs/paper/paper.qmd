@@ -17,7 +17,6 @@ bibliography: references.bib
 #| echo: false
 
 #### Workspace set-up ####
-
 ## Load packages
 library(tidyverse)
 library(palmerpenguins)
@@ -25,11 +24,8 @@ library(here)
 library(knitr)
 library(opendatatoronto)
 
-
 # read in the cleaned data
-# setwd("/Users/caoyiliu/Desktop/U of T/Year 4/STA497/Bicycle_Thefts_2023")
 cleaned_data <- read_csv(here("outputs/data/cleaned_data.csv"))
-raw_data <- read_csv(here("inputs/data/raw_bicycle_thefts_data.csv"))
 ```
 
 # Introduction
@@ -53,6 +49,8 @@ The cleaned data contains very detailed information regarding the occurrence tim
 #| message: false
 #| label: tbl-theft-occ-year
 #| tbl-cap: Summary of Bicycle Thefts Occurrence Year (2014 to 2022)
+
+# Create the table for the occ_year
 cleaned_data %>% 
   group_by(occ_year) %>% 
   summarise(n = n()) %>% 
@@ -75,6 +73,7 @@ The second main category in the cleaned data is the premises type of each bicycl
 #| label: tbl-theft-premises-type
 #| tbl-cap: Summary of Bicycle Thefts In Terms of Premises Types
 
+# Create the table for premises_type
 cleaned_data %>% 
   group_by(premises_type) %>% 
   summarise(n = n()) %>% 
@@ -96,6 +95,7 @@ The last category of variables in the cleaned data is the features of each stole
 #| label: tbl-theft-bike-cost
 #| tbl-cap: Summary of Stolen Bicycle Cost
 
+# Create the table for bike_cost
 summary_stats <- data.frame(
   Mean = mean(cleaned_data$bike_cost, na.rm = TRUE),
   SD = sd(cleaned_data$bike_cost, na.rm = TRUE),
@@ -104,7 +104,6 @@ summary_stats <- data.frame(
   Max = max(cleaned_data$bike_cost, na.rm = TRUE))
 
 kable(summary_stats)
-
 ```
 
 @tbl-theft-bike-cost shows the bicycle price of stolen bicycles. The mean cost of stolen bikes is around 1000 dollars. However, it is surprising that the most expensive stolen bicycles is worth 120,000 dollars.
@@ -119,11 +118,16 @@ kable(summary_stats)
 #| label: fig-year-trend
 #| fig-cap: Number of bicycle thefts from 2017 to 2022 by month
 
+# Filter the data from cleaned_data which contains only the bicycle thefts
+# from 2017 to 2022 and calculate the total number of thefts in each month
+# and year
 summarized_data <- cleaned_data %>%
   filter(occ_year %in% 2017:2022) %>% 
   group_by(occ_year, occ_month) %>%
   summarize(Total_Thefts = n())
 
+# Use the summarized data to draw the graph showing the yearly trend in 
+# bicycle thefts by month
 summarized_data %>% 
     mutate(occ_month = factor(occ_month, levels = month.name)) %>% 
     ggplot(aes(x = occ_month, y = Total_Thefts, group = occ_year, color =  as.factor(occ_year))) +
@@ -146,7 +150,10 @@ summarized_data %>%
 #| label: fig-premises-type
 #| fig-cap: Distribution of Bicycle Thefts by Premises Type and Seasonal Trends in Toronto
 
+# Create the graph showing the number of thefts under different premises type in
+# the recent three years.
 cleaned_data <- cleaned_data %>% 
+  # Mutate the occ_month so that they are be arranged in order
   mutate(stolen_summer = case_when(occ_month %in% c("May", "June", "July", "August") ~ "Yes",
                                    TRUE ~ "No"))
 cleaned_data |>
@@ -166,29 +173,38 @@ cleaned_data |>
 
 @fig-premises-type compares the premises type of bicycle thefts in the recent three years and indicates the proportion of bicycles stolen during the summer. There are three facets marking three different years. Each bar in each facet represents the number of bicycle thefts of a premises type. The filled color in each bar shows the proportion of bicycles stolen during the summer, with light coral meaning NO and light grey meaning Yes.
 
-## Compare the top 4 colors and top 5 bicycle types from bicycle thefts
+## Compare the top 4 colors and top 6 bicycle types from bicycle thefts
 
 ```{r}
 #| echo: false
 #| message: false
 #| label: fig-bike-type
-#| fig-cap: Distribution of bicycle thefts for the Top 4 Colours and Top 5 Bicycle Types
+#| fig-cap: Distribution of bicycle thefts for the Top 4 Colours and Top 6 Bicycle Types
+
+# Compare the the top 4 colors and top 6 bicycle types in bicycle thefts
+# Also find the proportion of bikes that is under mean price
 
 mean_price <- mean(cleaned_data$bike_cost, na.rm = TRUE)
+
+# Find the top 4 colors
 top_colors <- cleaned_data %>%
   count(bike_colour) %>%
   arrange(desc(n)) %>%
   slice(1:4) %>%
   pull(bike_colour)
+
+# Find the top 6 stolen bicycle types
 top_bike_types <- cleaned_data %>%
   count(bike_type) %>%
   arrange(desc(n)) %>%
   slice(1:6) %>%
   pull(bike_type)
 
+# Create a new column indicate the price of each stolen bicycle relative to mean
 cleaned_data <- cleaned_data %>%
   mutate(above_mean = ifelse(bike_cost > mean_price, "Above Mean", "Below Mean"))
 
+# Then plot the graph
 cleaned_data %>%
   filter(bike_colour %in% top_colors, bike_type %in% top_bike_types) %>%
   mutate(bike_colour_new = case_when(bike_colour == "BLK" ~ "Black",
@@ -208,7 +224,7 @@ cleaned_data %>%
   theme(legend.position = "bottom")
 ```
 
-@fig-bike-type compares the number of bicycle thefts for the top 4 colors and top 5 bicycle types. Each bar represents the corresponding number of bicycles of a bike type under different colors. In addition, each bar is filled with two colors, orange and dark teal, representing the proportion of bicycles that have a price above the mean or below the mean price.
+@fig-bike-type compares the number of bicycle thefts for the top 4 colors and top 6 bicycle types. Each bar represents the corresponding number of bicycles of a bike type under different colors. In addition, each bar is filled with two colors, orange and dark teal, representing the proportion of bicycles that have a price above the mean or below the mean price.
 
 # Discussion
 
