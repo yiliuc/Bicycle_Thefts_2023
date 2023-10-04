@@ -8,6 +8,8 @@
 
 #### Workspace setup ####
 library(tidyverse)
+library(tidyr)
+library(janitor)
 
 #### Clean data ####
 raw_data <- read_csv("inputs/data/raw_bicycle_thefts_data.csv")
@@ -25,8 +27,8 @@ cleaned_data <-
          BIKE_TYPE,
          BIKE_COLOUR,
          BIKE_COST) |>
-  tidyr::drop_na() |>
-  janitor::clean_names()
+  drop_na() |>
+  clean_names()
 
 #### Save data ####
 write_csv(x = cleaned_data, file = "outputs/data/cleaned_data.csv")
