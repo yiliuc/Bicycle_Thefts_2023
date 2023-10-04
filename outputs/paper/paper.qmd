@@ -44,14 +44,14 @@ There will be four main parts: Data, Results, Discussion, and Conclusion. The Da
 
 The data used in this paper was obtained from Open Data Toronto Portal by the library `opendatatoronto` [@opendatatoronto]. The name of the data file is `Bicycle Thefts` [@bicyclethefts]. The data contains more than 30,000 rows and about 30 columns. Data cleaning was executed using open-source statistical programming language `R` [@citeR] and R packages `tidyverse` [@tidyverse], `tidyr` [@tidyr], and `janitor` [@janitor]. The refined data set encompasses 11 distinct variables, which can be grouped into three primary categories.
 
-## 1. The Time of Bicycle Thefts Occurrence
+## The Time of Bicycle Thefts Occurrence
 
-The cleaned data contains very detailed information regarding the occurrence time of each theft, detailing up to the specific hour of occurrence. The table below @tbl_theft_occ_year summarize the occurrence year of bicycle thefts.
+The cleaned data contains very detailed information regarding the occurrence time of each theft, detailing up to the specific hour of occurrence. The table below @tbl-theft-occ-year summarize the occurrence year of bicycle thefts.
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: tbl_theft_occ_year
+#| label: tbl-theft-occ-year
 #| tbl-cap: Summary of Bicycle Thefts Occurrence Year (2014 to 2022)
 cleaned_data %>% 
   group_by(occ_year) %>% 
@@ -63,16 +63,16 @@ cleaned_data %>%
   kable(booktabs = TRUE)
 ```
 
-@tbl_theft_occ_year shows the number of bicycle thefts from 2009 to 2022. Between 2014 and 2018, we can see that the number of bicycle thefts increased first, then the bicycle thefts dropped gradually since 2019. The reported number of bicycle thefts for last year was about 2400.
+@tbl-theft-occ-year shows the number of bicycle thefts from 2009 to 2022. Between 2014 and 2018, we can see that the number of bicycle thefts increased first, then the bicycle thefts dropped gradually since 2019. The reported number of bicycle thefts for last year was about 2400.
 
-## 2. The Premises Place Where the Bike was stolen
+## The Premises Place Where the Bike was stolen
 
-The second main category in the cleaned data is the premises type of each bicycle thefts. The premises type here represents the places where the bicycle was stolen. In this data, there are six main premises types of bicycle theft: Commercial, Apartment, Other, House, Educational, Transit, and Other. [@tbl_theft_premises_type] summarizes the number of thefts for each premises type.
+The second main category in the cleaned data is the premises type of each bicycle thefts. The premises type here represents the places where the bicycle was stolen. In this data, there are six main premises types of bicycle theft: Commercial, Apartment, Other, House, Educational, Transit, and Other. @tbl-theft-premises-type summarizes the number of thefts for each premises type.
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: tbl_theft_premises_type
+#| label: tbl-theft-premises-type
 #| tbl-cap: Summary of Bicycle Thefts In Terms of Premises Types
 
 cleaned_data %>% 
@@ -84,16 +84,16 @@ cleaned_data %>%
   kable()
 ```
 
-From @tbl_theft_premises_type, we can observe that premises types "Outside" and "Apartment" have more bicycle thefts than the rest places, meaning that people need to pay more attention to their bicycles if they park them near the condo or on the street.
+From @tbl-theft-premises-type, we can observe that premises types "Outside" and "Apartment" have more bicycle thefts than the rest places, meaning that people need to pay more attention to their bicycles if they park them near the condo or on the street.
 
-## 3. The Stolen Bicycles' Features
+## The Stolen Bicycles' Features
 
 The last category of variables in the cleaned data is the features of each stolen bicycle. The features of each stolen bike in this data include its brand, type, color, and cost. In this paper, I will focus more on its type, color and cost.
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: tbl_theft_bike_cost
+#| label: tbl-theft-bike-cost
 #| tbl-cap: Summary of Stolen Bicycle Cost
 
 summary_stats <- data.frame(
@@ -107,7 +107,7 @@ kable(summary_stats)
 
 ```
 
-@tbl_theft_bike_cost shows the bicycle price of stolen bicycles. The mean cost of stolen bikes is around 1000 dollars. However, it is surprising that the most expensive stolen bicycles is worth 120,000 dollars.
+@tbl-theft-bike-cost shows the bicycle price of stolen bicycles. The mean cost of stolen bikes is around 1000 dollars. However, it is surprising that the most expensive stolen bicycles is worth 120,000 dollars.
 
 # Results
 
@@ -116,7 +116,7 @@ kable(summary_stats)
 ```{r}
 #| echo: false
 #| message: false
-#| label: fig_year_trend
+#| label: fig-year-trend
 #| fig-cap: Number of bicycle thefts from 2017 to 2022 by month
 
 summarized_data <- cleaned_data %>%
@@ -136,14 +136,14 @@ summarized_data %>%
     guides(x = guide_axis(angle = 90))
 ```
 
-@fig_year_trend compares the monthly bicycle thefts from 2017 to 2022, with each line with different colors representing different years. The summer seems to have significantly higher bicycle thefts than winter each year. In addition, July is the most severe month of bicycle thefts each year, ranging from 350 to 550 from the previous years. At the beginning and end of each year, bicycle thefts were always stable, keeping constant around 100.
+@fig-year-trend compares the monthly bicycle thefts from 2017 to 2022, with each line with different colors representing different years. The summer seems to have significantly higher bicycle thefts than winter each year. In addition, July is the most severe month of bicycle thefts each year, ranging from 350 to 550 from the previous years. At the beginning and end of each year, bicycle thefts were always stable, keeping constant around 100.
 
 ## Compare the premises types and probability to be stolen during summer.
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: fig_premises_type
+#| label: fig-premises-type
 #| fig-cap: Distribution of Bicycle Thefts by Premises Type and Seasonal Trends in Toronto
 
 cleaned_data <- cleaned_data %>% 
@@ -164,14 +164,14 @@ cleaned_data |>
   theme(legend.position = "bottom")
 ```
 
-@fig_premises_type compares the premises type of bicycle thefts in the recent three years and indicates the proportion of bicycles stolen during the summer. There are three facets marking three different years. Each bar in each facet represents the number of bicycle thefts of a premises type. The filled color in each bar shows the proportion of bicycles stolen during the summer, with light coral meaning NO and light grey meaning Yes.
+@fig-premises-type compares the premises type of bicycle thefts in the recent three years and indicates the proportion of bicycles stolen during the summer. There are three facets marking three different years. Each bar in each facet represents the number of bicycle thefts of a premises type. The filled color in each bar shows the proportion of bicycles stolen during the summer, with light coral meaning NO and light grey meaning Yes.
 
 ## Compare the top 4 colors and top 5 bicycle types from bicycle thefts
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: fig_bike_type
+#| label: fig-bike-type
 #| fig-cap: Distribution of bicycle thefts for the Top 4 Colours and Top 5 Bicycle Types
 
 mean_price <- mean(cleaned_data$bike_cost, na.rm = TRUE)
@@ -208,13 +208,13 @@ cleaned_data %>%
   theme(legend.position = "bottom")
 ```
 
-@fig_bike_type compares the number of bicycle thefts for the top 4 colors and top 5 bicycle types. Each bar represents the corresponding number of bicycles of a bike type under different colors. In addition, each bar is filled with two colors, orange and dark teal, representing the proportion of bicycles that have a price above the mean or below the mean price.
+@fig-bike-type compares the number of bicycle thefts for the top 4 colors and top 5 bicycle types. Each bar represents the corresponding number of bicycles of a bike type under different colors. In addition, each bar is filled with two colors, orange and dark teal, representing the proportion of bicycles that have a price above the mean or below the mean price.
 
 # Discussion
 
 ## Repeating patterns of bicycle thefts: expected to decrease in 2023.
 
-As illustrated in @fig_year_trend, bicycle thefts peak during the summer months and dip in the winter. This seasonal trend aligns with Amanat's observation [@amanat2023] of a 429% surge in thefts during summertime. A plausible explanation for this fluctuation is the increased cycling activity in summer due to favorable weather. Conversely, the cold winter months deter many from cycling, resulting in fewer theft opportunities.
+As illustrated in @fig-year-trend, bicycle thefts peak during the summer months and dip in the winter. This seasonal trend aligns with Amanat's observation [@amanat2023] of a 429% surge in thefts during summertime. A plausible explanation for this fluctuation is the increased cycling activity in summer due to favorable weather. Conversely, the cold winter months deter many from cycling, resulting in fewer theft opportunities.
 
 For the summer month, we can observe a "pendulum movement" in bicycle thefts. The number of thefts oscillates annually, increasing one year and then decreasing the next. This trend repeats consistently from 2017 to 2022. In addition, comparing 2022 to 2021, we see that the number of bicycle thefts during summer of 2022 started to increase again comparing to 2021. We may expect that the number of bicycle thefts decrease during the past summer. Moreover, the most significant decrease is between 2020 and 2021, where there was about 200 decrease in the thefts during summer months. Although the COVID-19 pandemic might be a rationale for this substantial decline, it can not help us to predict the change of thefts for this year.
 
@@ -222,13 +222,13 @@ Throughout the six-year span, July consistently to be the highest number of thef
 
 ## Increasing number of bicycle thefts on the outside and educational areas.
 
-@fig_premises_type provides insights into the distribution of bicycle thefts over the years, which remains relatively consistent. Notably, apartments emerged as the predominant location for such thefts. Yet, there's a discernible decline in apartment-related thefts from 2020 to 2023. In contrast, thefts in open spaces like streets, roads, or highways (categorized as "Outside") have seen a gradual increase, becoming most prevalent in 2022. Educational premises, such as schools or universities, also witnessed an increase in theft incidents, underscoring the need for students to rasie caution when parking their bicycles on campus.
+@fig-premises-type provides insights into the distribution of bicycle thefts over the years, which remains relatively consistent. Notably, apartments emerged as the predominant location for such thefts. Yet, there's a discernible decline in apartment-related thefts from 2020 to 2023. In contrast, thefts in open spaces like streets, roads, or highways (categorized as "Outside") have seen a gradual increase, becoming most prevalent in 2022. Educational premises, such as schools or universities, also witnessed an increase in theft incidents, underscoring the need for students to rasie caution when parking their bicycles on campus.
 
 For almost every premise type across all years, approximately half of the thefts occurred during summer. However, the number of bicycles stolen during summer increase gradually. This suggests that as the warmer months approach, bicycle owners should be particularly vigilant, regardless of where they park.
 
 ## No evidence indicates that the cheaper/more expensive bicycles are less/more likely to be stolen.
 
-@fig_bike_type reveals a distinct preference among thieves for black bicycles. In fact, the number of stolen black bikes equals to the combined total of the next three colors. In terms of bicycle types, mountain bicycles (MT) is the theives' primary target, closely followed by regular (RG) bicycles, which experience nearly identical theft rates.
+@fig-bike-type reveals a distinct preference among thieves for black bicycles. In fact, the number of stolen black bikes equals to the combined total of the next three colors. In terms of bicycle types, mountain bicycles (MT) is the theives' primary target, closely followed by regular (RG) bicycles, which experience nearly identical theft rates.
 
 When it comes to price of bicycles, with the exception of the EL type, the majority of stolen bikes across other categories are priced below the mean. Specifically, for the most sought-after types by thieves, MT and RG. There were about eighty percent of the stolen bicycles are priced below the mean. This suggests that thieves don't necessarily factor in the bicycle's value during their selection. Instead, they likely act on opportunity, choosing any bicycle that presents a convenient theft chance.
 
