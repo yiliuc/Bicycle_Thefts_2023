@@ -1,10 +1,8 @@
-# Starter folder
+# Analyzing Bicycle Parking Safety in Toronto: The Multifaceted Nature of Theft Risk
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
-
-To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
+This paper used the data from `Opentoronto` which contains the bicycle thefts record from 2014 to 2023, to investigate the pattern of bicycle theft in Toronto and find the potential reasons. 
 
 ## File Structure
 
