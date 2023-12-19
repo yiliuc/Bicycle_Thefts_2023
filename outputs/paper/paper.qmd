@@ -1,9 +1,9 @@
 ---
-title: "Assessing Bicycle Parking Safety in Toronto: The Multifaceted Nature of Theft Risk."
+title: "Analyzing Bicycle Parking Safety in Toronto: The Multifaceted Nature of Theft Risk"
 title-block-banner: true
 author: "Yiliu Cao"
 thanks: "Code and data from this analysis are available at: https://github.com/yiliuc/Bicycle_Thefts_2023.git"
-date: "today"
+date: "2023-10-4"
 date-format: "long"
 abstract: "This study utilizes data on bicycle thefts sourced from the Toronto Open Data Portal. Preliminary findings indicate a increase propensity for bicycle thefts during summer months. While black mountain bicycles constitute a significant proportion of stolen bikes, it does not necessarily imply they are more susceptible to theft due to their overall prevalence. Moreover, the cost of a bicycle does not seem to influence its theft risk, thieves will not evaluate the price before they steal it. Future research should explore the role of neighborhoods as a potential factor influencing bicycle thefts."
 format: pdf
